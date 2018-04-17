@@ -11,6 +11,11 @@ if !exists("g:chrome_cli_command")
   let g:chrome_cli_command = "chrome-cli"
 endif
 
+function! GrabTabList()
+  let tablist = systemlist(g:chrome_cli_command . " list tabs")
+  return tablist
+endfunction
+
 if !exists("g:current_selected_tab")
   let g:current_selected_tab = 2
 endif
@@ -19,27 +24,32 @@ function! ReloadTab()
   execute "!chrome-cli reload -t " . g:current_selected_tab
 endfunction
 
-" let g:chrome_tabs = systemlist("chrome-cli list tabs | sed 's/.*\[\([^]]*\)\].*/\1/g'")
-function! ShowAvailableTabs()
+function! ChangeCurrentTab()
     " Get the tab list.
-    let tablist = system(g:chrome_cli_command . " list tabs")
+    let tablist = GrabTabList()
 
     " Open a new split and set it up.
     vsplit __Chrome_Tabs__
+    setlocal modifiable
     normal! ggdG
     " setlocal filetype=potionbytecode
     setlocal buftype=nofile
     nnoremap <buffer> <CR> :call GrabTabChoice()<CR>
 
     " Insert the tab list.
-    call append(0, split(tablist, '\v\n'))
+    call append(0, tablist)
+
+    " remove the trailing newline
+    execute ":normal Gdd"
 
     setlocal nomodifiable
 endfunction
 
 function! GrabTabChoice()
-  set relativenumber!
+  execute ":normal ^yi["
+  let g:current_selected_tab = getreg(0)
+  close
 endfunction
 
-map <localleader>c :call ReloadTab()<CR>
-map <localleader>x :call ShowAvailableTabs()<CR>
+noremap <localleader>c :call ReloadTab()<CR><CR>
+noremap <localleader>x :call ChangeCurrentTab()<CR>
