@@ -39,8 +39,8 @@ function! ChangeCurrentTab()
     " Insert the tab list.
     call append(0, tablist)
 
-    " remove the trailing newline
-    execute ":normal Gdd"
+    " remove the trailing newline and return to top of file
+    execute ":normal Gddgg"
 
     setlocal nomodifiable
 endfunction
