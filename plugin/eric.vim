@@ -40,6 +40,7 @@ endfunction
 function! GrabTabChoice()
   execute ":normal ^yi["
   let g:current_selected_tab = getreg(0)
+  bdelete
   close
 endfunction
 
