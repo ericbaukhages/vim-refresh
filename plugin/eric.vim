@@ -16,14 +16,6 @@ function! GrabTabList()
   return tablist
 endfunction
 
-if !exists("g:current_selected_tab")
-  let g:current_selected_tab = 2
-endif
-
-function! ReloadTab()
-  execute "!chrome-cli reload -t " . g:current_selected_tab
-endfunction
-
 function! ChangeCurrentTab()
     " Get the tab list.
     let tablist = GrabTabList()
@@ -49,6 +41,15 @@ function! GrabTabChoice()
   execute ":normal ^yi["
   let g:current_selected_tab = getreg(0)
   close
+endfunction
+
+function! ReloadTab()
+  if !exists("g:current_selected_tab")
+    call ChangeCurrentTab()
+    call GrabTabChoice()
+  endif
+
+  execute "!chrome-cli reload -t " . g:current_selected_tab
 endfunction
 
 noremap <localleader>c :call ReloadTab()<CR><CR>
