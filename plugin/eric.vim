@@ -29,9 +29,17 @@ function! ShowAvailableTabs()
     normal! ggdG
     " setlocal filetype=potionbytecode
     setlocal buftype=nofile
+    nnoremap <buffer> <CR> :call GrabTabChoice()<CR>
 
     " Insert the tab list.
     call append(0, split(tablist, '\v\n'))
+
+    setlocal nomodifiable
 endfunction
 
-map <localleader>c :call ReloadTab()<CR><CR>
+function! GrabTabChoice()
+  set relativenumber!
+endfunction
+
+map <localleader>c :call ReloadTab()<CR>
+map <localleader>x :call ShowAvailableTabs()<CR>
