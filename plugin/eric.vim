@@ -39,7 +39,12 @@ endfunction
 
 function! GrabTabChoice()
   execute ":normal ^yi["
-  let g:current_selected_tab = getreg(0)
+  let tabInfo = split(getreg(0), ":")
+  if len(tabInfo) == 1
+    let g:current_selected_tab = tabInfo[0]
+  else
+    let g:current_selected_tab = tabInfo[1]
+  endif
   bdelete
   close
 endfunction
