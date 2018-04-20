@@ -11,6 +11,10 @@ if !exists("g:chrome_cli_command")
   let g:chrome_cli_command = "chrome-cli"
 endif
 
+if !exists("g:chrome_cli_refresh_active_tab")
+  let g:chrome_cli_refresh_active_tab = 0
+endif
+
 function! GrabTabList()
   let tablist = systemlist(g:chrome_cli_command . " list tabs")
   return tablist
@@ -54,7 +58,11 @@ function! ReloadTab()
     call GrabTabChoice()
   endif
 
-  execute "!chrome-cli reload -t " . g:current_selected_tab
+  if g:chrome_cli_refresh_active_tab == 1 
+    execute "!chrome-cli reload"
+  else
+    execute "!chrome-cli reload -t " . g:current_selected_tab
+  endif
 endfunction
 
 noremap <localleader>c :call ReloadTab()<CR><CR>
