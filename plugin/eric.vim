@@ -21,25 +21,25 @@ function! GrabTabList()
 endfunction
 
 function! ChangeCurrentTab()
-    " Get the tab list.
-    let tablist = GrabTabList()
-    let tablist = ["[0] Current Active Tab"] + tablist
+  " Get the tab list.
+  let tablist = GrabTabList()
+  let tablist = ["[0] Use Active Tab"] + tablist
 
-    " Open a new split and set it up.
-    vsplit __Chrome_Tabs__
-    setlocal modifiable
-    normal! ggdG
-    " setlocal filetype=potionbytecode
-    setlocal buftype=nofile
-    nnoremap <buffer> <CR> :call GrabTabChoice()<CR>
+  " Open a new split and set it up.
+  vsplit __Chrome_Tabs__
+  setlocal modifiable
+  normal! ggdG
+  " setlocal filetype=potionbytecode
+  setlocal buftype=nofile
+  nnoremap <buffer> <CR> :call GrabTabChoice()<CR>
 
-    " Insert the tab list.
-    call append(0, tablist)
+  " Insert the tab list.
+  call append(0, tablist)
 
-    " remove the trailing newline and return to top of file
-    execute ":normal Gddgg"
+  " remove the trailing newline and return to top of file
+  execute ":normal Gddgg"
 
-    setlocal nomodifiable
+  setlocal nomodifiable
 endfunction
 
 function! GrabTabChoice()
