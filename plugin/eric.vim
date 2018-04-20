@@ -23,6 +23,7 @@ endfunction
 function! ChangeCurrentTab()
     " Get the tab list.
     let tablist = GrabTabList()
+    let tablist = ["[0] Current Active Tab"] + tablist
 
     " Open a new split and set it up.
     vsplit __Chrome_Tabs__
@@ -49,16 +50,17 @@ function! GrabTabChoice()
   else
     let g:current_selected_tab = tabInfo[1]
   endif
+
+  if g:current_selected_tab ==# 0
+    let g:chrome_cli_refresh_active_tab = 1
+  else
+    let g:chrome_cli_refresh_active_tab = 0
+  endif
   bdelete
 endfunction
 
 function! ReloadTab()
-  if !exists("g:current_selected_tab")
-    call ChangeCurrentTab()
-    call GrabTabChoice()
-  endif
-
-  if g:chrome_cli_refresh_active_tab == 1 
+  if g:chrome_cli_refresh_active_tab == 1 || !exists("g:current_selected_tab")
     execute "!chrome-cli reload"
   else
     execute "!chrome-cli reload -t " . g:current_selected_tab
