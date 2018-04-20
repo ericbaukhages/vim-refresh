@@ -46,7 +46,6 @@ function! GrabTabChoice()
     let g:current_selected_tab = tabInfo[1]
   endif
   bdelete
-  close
 endfunction
 
 function! ReloadTab()
