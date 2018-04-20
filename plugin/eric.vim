@@ -23,7 +23,7 @@ endfunction
 function! ChangeCurrentTab()
   " Get the tab list.
   let tablist = GrabTabList()
-  let tablist = ["[0] Use Active Tab"] + tablist
+  let tablist = [GetActiveTabMessage()] + tablist
 
   " Open a new split and set it up.
   vsplit __Chrome_Tabs__
@@ -57,6 +57,14 @@ function! GrabTabChoice()
     let g:chrome_cli_refresh_active_tab = 0
   endif
   bdelete
+endfunction
+
+function! GetActiveTabMessage()
+  if g:chrome_cli_refresh_active_tab == 1 || !exists("g:current_selected_tab")
+    return "[0] Currently Reloading Active Tab"
+  else
+    return "[0] Use Active Tab"
+  endif
 endfunction
 
 function! ReloadTab()
