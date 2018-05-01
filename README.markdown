@@ -1,12 +1,8 @@
-# eric.vim
+# refresh.vim
 
-Not sure yet what this will be.
+This is a simple browser refresh plugin.
 
-## TODO
-* [x] Delete list buffer after selecting
-* [ ] Set up in GitHub
-* [ ] setting to refresh active tab
-* [ ] deal with chrome tabs w/ multiple windows, e.g. `[2] awesome` vs `[2:11] awesome`
+This plugin is my attempt to understand how vim plugins are written.
 
 ## License
 
