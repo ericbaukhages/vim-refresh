@@ -14,6 +14,6 @@ None yet
 
 ABOUT                                           *refresh-about*
 
-Thanks so much to Tim Pope <http://tpo.pe/> for giving good examples.
+Thanks so much to Tim Pope <http://tpo.pe/> for giving good examples of Vim plugins.
 
  vim:tw=78:et:ft=help:norl:
