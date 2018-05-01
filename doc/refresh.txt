@@ -1,6 +1,6 @@
 *refresh.txt*  simple browser refresh plugin
 Author:  Eric Baukhages <http://eric.baukhag.es/>
-License: Not sure yet
+License: Same terms as Vim itself (see |license|)
 
 INTRODUCTION                                    *refresh*
 

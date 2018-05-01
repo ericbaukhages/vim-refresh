@@ -6,4 +6,5 @@ This plugin is my attempt to understand how vim plugins are written.
 
 ## License
 
-None yet.
+Copyright (c) Eric Baukhages.  Distributed under the same terms as Vim itself.
+See `:help license`.
