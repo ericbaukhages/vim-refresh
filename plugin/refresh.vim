@@ -15,6 +15,10 @@ if !exists("g:chrome_cli_refresh_active_tab")
   let g:chrome_cli_refresh_active_tab = 0
 endif
 
+if !exists("g:chrome_cli_refresh_dev_tools")
+  let g:chrome_cli_refresh_dev_tools = 0
+endif
+
 function! GrabTabList()
   let tablist = systemlist(g:chrome_cli_command . " list tabs")
   return tablist
@@ -59,6 +63,10 @@ function! GrabTabChoice()
   bdelete
 endfunction
 
+function! IsTabDevTools(tab)
+  return a:tab =~ "Developer Tools" || a:tab =~ "DevTools"
+endfunction
+
 function! GetActiveTabMessage()
   if g:chrome_cli_refresh_active_tab == 1 || !exists("g:current_selected_tab")
     return "[0] Currently Reloading Active Tab"
@@ -69,6 +77,13 @@ endfunction
 
 function! ReloadTab()
   if g:chrome_cli_refresh_active_tab == 1 || !exists("g:current_selected_tab")
+    let activetab = GrabTabList()[0]
+
+    if IsTabDevTools(activetab)
+      echom "Not refreshing active tab, is dev tools"
+      return 0
+    endif
+
     execute "!chrome-cli reload"
   else
     execute "!chrome-cli reload -t " . g:current_selected_tab
