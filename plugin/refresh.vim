@@ -1,11 +1,11 @@
-" eric.vim - Baby's first plugin
-" Maintainer:   Eric Baukhages <http://eric.baukhag.es>
+" refresh.vim - run external commands w/ shortcuts
+" Maintainer:   Eric Baukhages <https://eric.baukhag.es>
 " Version:      0.1
 
-if exists('g:loaded_eric')
+if exists('g:loaded_refresh_vim')
   finish
 endif
-let g:loaded_eric = 1
+let g:loaded_refresh_vim = 1
 
 if !exists("g:chrome_cli_command")
   let g:chrome_cli_command = "chrome-cli"
